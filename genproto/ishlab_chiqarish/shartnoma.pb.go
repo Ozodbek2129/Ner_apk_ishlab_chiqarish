@@ -120,10 +120,11 @@ func (x *NewInsideTheContractGetAllRes) GetAll() []*NewInsideTheContractt {
 type NewInsideTheContractt struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Price         string                 `protobuf:"bytes,3,opt,name=price,proto3" json:"price,omitempty"`
-	CreatedAt     string                 `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     string                 `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	ContractId    string                 `protobuf:"bytes,2,opt,name=contract_id,json=contractId,proto3" json:"contract_id,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Price         string                 `protobuf:"bytes,4,opt,name=price,proto3" json:"price,omitempty"`
+	CreatedAt     string                 `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     string                 `protobuf:"bytes,6,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -161,6 +162,13 @@ func (*NewInsideTheContractt) Descriptor() ([]byte, []int) {
 func (x *NewInsideTheContractt) GetId() string {
 	if x != nil {
 		return x.Id
+	}
+	return ""
+}
+
+func (x *NewInsideTheContractt) GetContractId() string {
+	if x != nil {
+		return x.ContractId
 	}
 	return ""
 }
@@ -283,10 +291,9 @@ func (x *NewInsideTheContractDeleteRes) GetMessage() string {
 
 type NewInsideTheContractUpdateReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Price         string                 `protobuf:"bytes,2,opt,name=price,proto3" json:"price,omitempty"`
-	CreatedAt     string                 `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt     string                 `protobuf:"bytes,4,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	ContractId    string                 `protobuf:"bytes,1,opt,name=contract_id,json=contractId,proto3" json:"contract_id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Price         string                 `protobuf:"bytes,3,opt,name=price,proto3" json:"price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -321,6 +328,13 @@ func (*NewInsideTheContractUpdateReq) Descriptor() ([]byte, []int) {
 	return file_ner_apk_proto_ishlab_chiqarish_shartnoma_proto_rawDescGZIP(), []int{5}
 }
 
+func (x *NewInsideTheContractUpdateReq) GetContractId() string {
+	if x != nil {
+		return x.ContractId
+	}
+	return ""
+}
+
 func (x *NewInsideTheContractUpdateReq) GetName() string {
 	if x != nil {
 		return x.Name
@@ -331,20 +345,6 @@ func (x *NewInsideTheContractUpdateReq) GetName() string {
 func (x *NewInsideTheContractUpdateReq) GetPrice() string {
 	if x != nil {
 		return x.Price
-	}
-	return ""
-}
-
-func (x *NewInsideTheContractUpdateReq) GetCreatedAt() string {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return ""
-}
-
-func (x *NewInsideTheContractUpdateReq) GetUpdatedAt() string {
-	if x != nil {
-		return x.UpdatedAt
 	}
 	return ""
 }
@@ -395,8 +395,9 @@ func (x *NewInsideTheContractUpdateRes) GetMessage() string {
 
 type NewInsideTheContractReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Price         string                 `protobuf:"bytes,2,opt,name=price,proto3" json:"price,omitempty"`
+	ContractId    string                 `protobuf:"bytes,1,opt,name=contract_id,json=contractId,proto3" json:"contract_id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Price         string                 `protobuf:"bytes,3,opt,name=price,proto3" json:"price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -429,6 +430,13 @@ func (x *NewInsideTheContractReq) ProtoReflect() protoreflect.Message {
 // Deprecated: Use NewInsideTheContractReq.ProtoReflect.Descriptor instead.
 func (*NewInsideTheContractReq) Descriptor() ([]byte, []int) {
 	return file_ner_apk_proto_ishlab_chiqarish_shartnoma_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *NewInsideTheContractReq) GetContractId() string {
+	if x != nil {
+		return x.ContractId
+	}
+	return ""
 }
 
 func (x *NewInsideTheContractReq) GetName() string {
@@ -803,11 +811,12 @@ func (x *NewContractDeleteRes) GetMessage() string {
 
 type NewContractUpdateReq struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
-	ContractName      string                 `protobuf:"bytes,1,opt,name=contract_name,json=contractName,proto3" json:"contract_name,omitempty"`
-	ContractNumber    string                 `protobuf:"bytes,2,opt,name=contract_number,json=contractNumber,proto3" json:"contract_number,omitempty"`
-	ContractDeadline  string                 `protobuf:"bytes,3,opt,name=contract_deadline,json=contractDeadline,proto3" json:"contract_deadline,omitempty"`
-	ContractFileUrl   string                 `protobuf:"bytes,4,opt,name=contract_file_url,json=contractFileUrl,proto3" json:"contract_file_url,omitempty"`
-	ResponsiblePerson string                 `protobuf:"bytes,5,opt,name=responsible_person,json=responsiblePerson,proto3" json:"responsible_person,omitempty"`
+	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	ContractName      string                 `protobuf:"bytes,2,opt,name=contract_name,json=contractName,proto3" json:"contract_name,omitempty"`
+	ContractNumber    string                 `protobuf:"bytes,3,opt,name=contract_number,json=contractNumber,proto3" json:"contract_number,omitempty"`
+	ContractDeadline  string                 `protobuf:"bytes,4,opt,name=contract_deadline,json=contractDeadline,proto3" json:"contract_deadline,omitempty"`
+	ContractFileUrl   string                 `protobuf:"bytes,5,opt,name=contract_file_url,json=contractFileUrl,proto3" json:"contract_file_url,omitempty"`
+	ResponsiblePerson string                 `protobuf:"bytes,6,opt,name=responsible_person,json=responsiblePerson,proto3" json:"responsible_person,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -840,6 +849,13 @@ func (x *NewContractUpdateReq) ProtoReflect() protoreflect.Message {
 // Deprecated: Use NewContractUpdateReq.ProtoReflect.Descriptor instead.
 func (*NewContractUpdateReq) Descriptor() ([]byte, []int) {
 	return file_ner_apk_proto_ishlab_chiqarish_shartnoma_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *NewContractUpdateReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
 }
 
 func (x *NewContractUpdateReq) GetContractName() string {
@@ -1150,31 +1166,33 @@ const file_ner_apk_proto_ishlab_chiqarish_shartnoma_proto_rawDesc = "" +
 	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x12\n" +
 	"\x04page\x18\x02 \x01(\x05R\x04page\"Z\n" +
 	"\x1dNewInsideTheContractGetAllRes\x129\n" +
-	"\x03all\x18\x01 \x03(\v2'.ishlab_chiqarish.NewInsideTheContracttR\x03all\"\x8f\x01\n" +
+	"\x03all\x18\x01 \x03(\v2'.ishlab_chiqarish.NewInsideTheContracttR\x03all\"\xb0\x01\n" +
 	"\x15NewInsideTheContractt\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05price\x18\x03 \x01(\tR\x05price\x12\x1d\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
+	"\vcontract_id\x18\x02 \x01(\tR\n" +
+	"contractId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x14\n" +
+	"\x05price\x18\x04 \x01(\tR\x05price\x12\x1d\n" +
 	"\n" +
-	"created_at\x18\x04 \x01(\tR\tcreatedAt\x12\x1d\n" +
+	"created_at\x18\x05 \x01(\tR\tcreatedAt\x12\x1d\n" +
 	"\n" +
-	"updated_at\x18\x05 \x01(\tR\tupdatedAt\"/\n" +
+	"updated_at\x18\x06 \x01(\tR\tupdatedAt\"/\n" +
 	"\x1dNewInsideTheContractDeleteReq\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"9\n" +
 	"\x1dNewInsideTheContractDeleteRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"\x87\x01\n" +
-	"\x1dNewInsideTheContractUpdateReq\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
-	"\x05price\x18\x02 \x01(\tR\x05price\x12\x1d\n" +
-	"\n" +
-	"created_at\x18\x03 \x01(\tR\tcreatedAt\x12\x1d\n" +
-	"\n" +
-	"updated_at\x18\x04 \x01(\tR\tupdatedAt\"9\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"j\n" +
+	"\x1dNewInsideTheContractUpdateReq\x12\x1f\n" +
+	"\vcontract_id\x18\x01 \x01(\tR\n" +
+	"contractId\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
+	"\x05price\x18\x03 \x01(\tR\x05price\"9\n" +
 	"\x1dNewInsideTheContractUpdateRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"C\n" +
-	"\x17NewInsideTheContractReq\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
-	"\x05price\x18\x02 \x01(\tR\x05price\"3\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"d\n" +
+	"\x17NewInsideTheContractReq\x12\x1f\n" +
+	"\vcontract_id\x18\x01 \x01(\tR\n" +
+	"contractId\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
+	"\x05price\x18\x03 \x01(\tR\x05price\"3\n" +
 	"\x17NewInsideTheContractRes\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"@\n" +
 	"\x14NewContractGetAllReq\x12\x14\n" +
@@ -1194,13 +1212,14 @@ const file_ner_apk_proto_ishlab_chiqarish_shartnoma_proto_rawDesc = "" +
 	"\x14NewContractDeleteReq\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"0\n" +
 	"\x14NewContractDeleteRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"\xec\x01\n" +
-	"\x14NewContractUpdateReq\x12#\n" +
-	"\rcontract_name\x18\x01 \x01(\tR\fcontractName\x12'\n" +
-	"\x0fcontract_number\x18\x02 \x01(\tR\x0econtractNumber\x12+\n" +
-	"\x11contract_deadline\x18\x03 \x01(\tR\x10contractDeadline\x12*\n" +
-	"\x11contract_file_url\x18\x04 \x01(\tR\x0fcontractFileUrl\x12-\n" +
-	"\x12responsible_person\x18\x05 \x01(\tR\x11responsiblePerson\"0\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"\xfc\x01\n" +
+	"\x14NewContractUpdateReq\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12#\n" +
+	"\rcontract_name\x18\x02 \x01(\tR\fcontractName\x12'\n" +
+	"\x0fcontract_number\x18\x03 \x01(\tR\x0econtractNumber\x12+\n" +
+	"\x11contract_deadline\x18\x04 \x01(\tR\x10contractDeadline\x12*\n" +
+	"\x11contract_file_url\x18\x05 \x01(\tR\x0fcontractFileUrl\x12-\n" +
+	"\x12responsible_person\x18\x06 \x01(\tR\x11responsiblePerson\"0\n" +
 	"\x14NewContractUpdateRes\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"\xe6\x01\n" +
 	"\x0eNewContractReq\x12#\n" +
