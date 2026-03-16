@@ -177,6 +177,7 @@ func (p *NerProductionRepo) NewInsideTheContract(ctx context.Context, req *pb.Ne
 
 	return &pb.NewInsideTheContractRes{Message: "Successful"}, nil
 }
+
 func (p *NerProductionRepo) NewInsideTheContractUpdate(ctx context.Context, req *pb.NewInsideTheContractUpdateReq) (*pb.NewInsideTheContractUpdateRes, error) {
 	queryUpdate := `
 		UPDATE inside_contract 
