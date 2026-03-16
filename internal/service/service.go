@@ -17,7 +17,7 @@ type ProdutionContract struct {
 	Logger *slog.Logger
 }
 
-func NewProdutionContractService(db *sql.DB, logger *slog.Logger) *ProdutionContract {
+func NewProductionContractService(db *sql.DB, logger *slog.Logger) *ProdutionContract {
 	return &ProdutionContract{
 		Production:   postgres.NewPostgresStorage(db, logger),
 		Logger: logger,
