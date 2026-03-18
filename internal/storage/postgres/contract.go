@@ -182,7 +182,7 @@ func (p *NerProductionRepo) NewInsideTheContractUpdate(ctx context.Context, req 
 	queryUpdate := `
 		UPDATE inside_contract 
 		SET inside_contract_name = $1, inside_contract_price = $2, updated_at = $3
-		WHERE contract_id = $4 AND deleted_at = 0
+		WHERE contract_id = $4 AND id = $5 AND deleted_at = 0
 	`
 	result, err := p.DB.ExecContext(
 		ctx,
@@ -191,6 +191,7 @@ func (p *NerProductionRepo) NewInsideTheContractUpdate(ctx context.Context, req 
 		req.Price,
 		time.Now(),
 		req.ContractId,
+		req.Id,
 	)
 	if err != nil {
 		p.Log.Error("Error updating inside_contract", "err", err)
