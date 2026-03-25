@@ -88,7 +88,7 @@ func (p *NerProductionRepo) NewContractUpdate(ctx context.Context, req *pb.NewCo
 
 func (p *NerProductionRepo) NewContractDelete(ctx context.Context, req *pb.NewContractDeleteReq) (*pb.NewContractDeleteRes, error) {
 	query := `update production_contract set deleted_at = $1 where id = $2`
-	res, err := p.DB.ExecContext(ctx, query, time.Now(), req.Id)
+	res, err := p.DB.ExecContext(ctx, query, time.Now().Unix(), req.Id)
 	if err != nil {
 		p.Log.Error("Error Delete contract", "error", err.Error())
 		return nil, err
@@ -136,7 +136,13 @@ func (p *NerProductionRepo) NewContractGetName(ctx context.Context, req *pb.NewC
 func (p *NerProductionRepo) NewContractGetAll(ctx context.Context, req *pb.NewContractGetAllReq) (*pb.NewContractGetAllRes, error) {
 	offset := (req.Page - 1) * req.Limit
 
-	query := `SELECT id, contract_name, contract_number, contract_deadline, contract_file, responsible_person FROM production_contract ORDER BY created_at DESC LIMIT $1 OFFSET $2`
+	query := `
+	SELECT id, contract_name, contract_number, contract_deadline, contract_file, responsible_person 
+	FROM production_contract 
+	WHERE deleted_at = 0
+	ORDER BY created_at DESC 
+	LIMIT $1 OFFSET $2
+`
 	rows, err := p.DB.QueryContext(ctx, query, req.Limit, offset)
 	if err != nil {
 		p.Log.Error("Error fetching production_contract", "err", err)
@@ -216,7 +222,7 @@ func (p *NerProductionRepo) NewInsideTheContractUpdate(ctx context.Context, req 
 
 func (p *NerProductionRepo) NewInsideTheContractDelete(ctx context.Context, req *pb.NewInsideTheContractDeleteReq) (*pb.NewInsideTheContractDeleteRes, error) {
 	query := `update inside_contract set deleted_at = $1 where id = $2`
-	res, err := p.DB.ExecContext(ctx, query, time.Now(), req.Id)
+	res, err := p.DB.ExecContext(ctx, query, time.Now().Unix(), req.Id)
 	if err != nil {
 		p.Log.Error("Error Delete inside_contract", "error", err.Error())
 		return nil, err
@@ -241,7 +247,10 @@ func (p *NerProductionRepo) NewInsideTheContractDelete(ctx context.Context, req 
 func (p *NerProductionRepo) NewInsideTheContractGetAll(ctx context.Context, req *pb.NewInsideTheContractGetAllReq) (*pb.NewInsideTheContractGetAllRes, error) {
 	offset := (req.Page - 1) * req.Limit
 
-	query := `SELECT id, contract_id, inside_contract_name, inside_contract_price, created_at, updated_at FROM inside_contract ORDER BY created_at DESC LIMIT $1 OFFSET $2`
+	query := `SELECT 
+			id, contract_id, inside_contract_name, inside_contract_price, created_at, updated_at 
+		FROM inside_contract 
+		where deleted_at = 0 ORDER BY created_at DESC LIMIT $1 OFFSET $2`
 	rows, err := p.DB.QueryContext(ctx, query, req.Limit, offset)
 	if err != nil {
 		p.Log.Error("Error fetching inside_contract", "err", err)
