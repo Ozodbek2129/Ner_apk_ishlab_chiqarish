@@ -187,8 +187,8 @@ func (p *NerProductionRepo) NewInsideTheContract(ctx context.Context, req *pb.Ne
 func (p *NerProductionRepo) NewInsideTheContractUpdate(ctx context.Context, req *pb.NewInsideTheContractUpdateReq) (*pb.NewInsideTheContractUpdateRes, error) {
 	queryUpdate := `
 		UPDATE inside_contract 
-		SET inside_contract_name = $1, inside_contract_price = $2, updated_at = $3
-		WHERE contract_id = $4 AND id = $5 AND deleted_at = 0
+		SET inside_contract_name = $1, inside_contract_price = $2, updated_at = $3, situation = $4
+		WHERE contract_id = $5 AND id = $6 AND deleted_at = 0
 	`
 	result, err := p.DB.ExecContext(
 		ctx,
@@ -196,6 +196,7 @@ func (p *NerProductionRepo) NewInsideTheContractUpdate(ctx context.Context, req 
 		req.Name,
 		req.Price,
 		time.Now(),
+		req.Situation,
 		req.ContractId,
 		req.Id,
 	)
@@ -248,7 +249,7 @@ func (p *NerProductionRepo) NewInsideTheContractGetAll(ctx context.Context, req 
 	offset := (req.Page - 1) * req.Limit
 
 	query := `SELECT 
-			id, contract_id, inside_contract_name, inside_contract_price, created_at, updated_at 
+			id, contract_id, inside_contract_name, inside_contract_price, created_at, updated_at, situation
 		FROM inside_contract 
 		where deleted_at = 0 ORDER BY created_at DESC LIMIT $1 OFFSET $2`
 	rows, err := p.DB.QueryContext(ctx, query, req.Limit, offset)
@@ -261,7 +262,7 @@ func (p *NerProductionRepo) NewInsideTheContractGetAll(ctx context.Context, req 
 	var inside_contract []*pb.NewInsideTheContractt
 	for rows.Next() {
 		var c pb.NewInsideTheContractt
-		if err := rows.Scan(&c.Id, &c.ContractId, &c.Name, &c.Price, &c.CreatedAt, &c.UpdatedAt); err != nil {
+		if err := rows.Scan(&c.Id, &c.ContractId, &c.Name, &c.Price, &c.CreatedAt, &c.UpdatedAt, &c.Situation); err != nil {
 			p.Log.Error("Error scanning inside_contract row", "error", err)
 			return nil, err
 		}
