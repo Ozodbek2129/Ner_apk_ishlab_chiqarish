@@ -182,8 +182,8 @@ func (x *CreateGroupRes) GetMessage() string {
 type UpdateGroupReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Master        string                 `protobuf:"bytes,3,opt,name=master,proto3" json:"master,omitempty"`
+	Name          *string                `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	Master        *string                `protobuf:"bytes,3,opt,name=master,proto3,oneof" json:"master,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -226,15 +226,15 @@ func (x *UpdateGroupReq) GetId() string {
 }
 
 func (x *UpdateGroupReq) GetName() string {
-	if x != nil {
-		return x.Name
+	if x != nil && x.Name != nil {
+		return *x.Name
 	}
 	return ""
 }
 
 func (x *UpdateGroupReq) GetMaster() string {
-	if x != nil {
-		return x.Master
+	if x != nil && x.Master != nil {
+		return *x.Master
 	}
 	return ""
 }
@@ -642,10 +642,10 @@ func (x *CreateWorkerRes) GetMessage() string {
 
 type UpdateWorkerReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Image         string                 `protobuf:"bytes,3,opt,name=image,proto3" json:"image,omitempty"`
-	GroupId       string                 `protobuf:"bytes,4,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	Id            *string                `protobuf:"bytes,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
+	Name          *string                `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	Image         *string                `protobuf:"bytes,3,opt,name=image,proto3,oneof" json:"image,omitempty"`
+	GroupId       *string                `protobuf:"bytes,4,opt,name=group_id,json=groupId,proto3,oneof" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -681,29 +681,29 @@ func (*UpdateWorkerReq) Descriptor() ([]byte, []int) {
 }
 
 func (x *UpdateWorkerReq) GetId() string {
-	if x != nil {
-		return x.Id
+	if x != nil && x.Id != nil {
+		return *x.Id
 	}
 	return ""
 }
 
 func (x *UpdateWorkerReq) GetName() string {
-	if x != nil {
-		return x.Name
+	if x != nil && x.Name != nil {
+		return *x.Name
 	}
 	return ""
 }
 
 func (x *UpdateWorkerReq) GetImage() string {
-	if x != nil {
-		return x.Image
+	if x != nil && x.Image != nil {
+		return *x.Image
 	}
 	return ""
 }
 
 func (x *UpdateWorkerReq) GetGroupId() string {
-	if x != nil {
-		return x.GroupId
+	if x != nil && x.GroupId != nil {
+		return *x.GroupId
 	}
 	return ""
 }
@@ -947,11 +947,12 @@ func (x *GetAllWorkerRes) GetWorkers() []*Worker {
 // ////////////////// ATTENDANCE ////////////////////
 type Attendance struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	WorkerId      string                 `protobuf:"bytes,1,opt,name=worker_id,json=workerId,proto3" json:"worker_id,omitempty"`
-	Situation     string                 `protobuf:"bytes,2,opt,name=situation,proto3" json:"situation,omitempty"`
-	Reason        string                 `protobuf:"bytes,3,opt,name=reason,proto3" json:"reason,omitempty"`
-	IsPresent     bool                   `protobuf:"varint,4,opt,name=is_present,json=isPresent,proto3" json:"is_present,omitempty"`
-	WorkDate      *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=work_date,json=workDate,proto3" json:"work_date,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	WorkerId      string                 `protobuf:"bytes,2,opt,name=worker_id,json=workerId,proto3" json:"worker_id,omitempty"`
+	Situation     string                 `protobuf:"bytes,3,opt,name=situation,proto3" json:"situation,omitempty"`
+	Reason        string                 `protobuf:"bytes,4,opt,name=reason,proto3" json:"reason,omitempty"`
+	IsPresent     bool                   `protobuf:"varint,5,opt,name=is_present,json=isPresent,proto3" json:"is_present,omitempty"`
+	WorkDate      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=work_date,json=workDate,proto3" json:"work_date,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -984,6 +985,13 @@ func (x *Attendance) ProtoReflect() protoreflect.Message {
 // Deprecated: Use Attendance.ProtoReflect.Descriptor instead.
 func (*Attendance) Descriptor() ([]byte, []int) {
 	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *Attendance) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
 }
 
 func (x *Attendance) GetWorkerId() string {
@@ -1109,16 +1117,100 @@ func (x *CreateAttendanceRes) GetMessage() string {
 	return ""
 }
 
+type AttendanceUpdate struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	WorkerId      string                 `protobuf:"bytes,2,opt,name=worker_id,json=workerId,proto3" json:"worker_id,omitempty"`
+	Situation     *string                `protobuf:"bytes,3,opt,name=situation,proto3,oneof" json:"situation,omitempty"`
+	Reason        *string                `protobuf:"bytes,4,opt,name=reason,proto3,oneof" json:"reason,omitempty"`
+	IsPresent     *bool                  `protobuf:"varint,5,opt,name=is_present,json=isPresent,proto3,oneof" json:"is_present,omitempty"`
+	WorkDate      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=work_date,json=workDate,proto3" json:"work_date,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AttendanceUpdate) Reset() {
+	*x = AttendanceUpdate{}
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AttendanceUpdate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AttendanceUpdate) ProtoMessage() {}
+
+func (x *AttendanceUpdate) ProtoReflect() protoreflect.Message {
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AttendanceUpdate.ProtoReflect.Descriptor instead.
+func (*AttendanceUpdate) Descriptor() ([]byte, []int) {
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *AttendanceUpdate) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *AttendanceUpdate) GetWorkerId() string {
+	if x != nil {
+		return x.WorkerId
+	}
+	return ""
+}
+
+func (x *AttendanceUpdate) GetSituation() string {
+	if x != nil && x.Situation != nil {
+		return *x.Situation
+	}
+	return ""
+}
+
+func (x *AttendanceUpdate) GetReason() string {
+	if x != nil && x.Reason != nil {
+		return *x.Reason
+	}
+	return ""
+}
+
+func (x *AttendanceUpdate) GetIsPresent() bool {
+	if x != nil && x.IsPresent != nil {
+		return *x.IsPresent
+	}
+	return false
+}
+
+func (x *AttendanceUpdate) GetWorkDate() *timestamppb.Timestamp {
+	if x != nil {
+		return x.WorkDate
+	}
+	return nil
+}
+
 type UpdateAttendanceReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Attendance    []*Attendance          `protobuf:"bytes,1,rep,name=attendance,proto3" json:"attendance,omitempty"`
+	Attendance    []*AttendanceUpdate    `protobuf:"bytes,1,rep,name=attendance,proto3" json:"attendance,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateAttendanceReq) Reset() {
 	*x = UpdateAttendanceReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[21]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1130,7 +1222,7 @@ func (x *UpdateAttendanceReq) String() string {
 func (*UpdateAttendanceReq) ProtoMessage() {}
 
 func (x *UpdateAttendanceReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[21]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1143,10 +1235,10 @@ func (x *UpdateAttendanceReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateAttendanceReq.ProtoReflect.Descriptor instead.
 func (*UpdateAttendanceReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{21}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{22}
 }
 
-func (x *UpdateAttendanceReq) GetAttendance() []*Attendance {
+func (x *UpdateAttendanceReq) GetAttendance() []*AttendanceUpdate {
 	if x != nil {
 		return x.Attendance
 	}
@@ -1162,7 +1254,7 @@ type UpdateAttendanceRes struct {
 
 func (x *UpdateAttendanceRes) Reset() {
 	*x = UpdateAttendanceRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[22]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1174,7 +1266,7 @@ func (x *UpdateAttendanceRes) String() string {
 func (*UpdateAttendanceRes) ProtoMessage() {}
 
 func (x *UpdateAttendanceRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[22]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1187,7 +1279,7 @@ func (x *UpdateAttendanceRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateAttendanceRes.ProtoReflect.Descriptor instead.
 func (*UpdateAttendanceRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{22}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *UpdateAttendanceRes) GetMessage() string {
@@ -1199,15 +1291,15 @@ func (x *UpdateAttendanceRes) GetMessage() string {
 
 type DeleteAttendanceReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	WorkDate      *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=work_date,json=workDate,proto3" json:"work_date,omitempty"`
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
+	TodayDate     *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=today_date,json=todayDate,proto3" json:"today_date,omitempty"`
+	DeleteDate    *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=delete_date,json=deleteDate,proto3" json:"delete_date,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteAttendanceReq) Reset() {
 	*x = DeleteAttendanceReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[23]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1219,7 +1311,7 @@ func (x *DeleteAttendanceReq) String() string {
 func (*DeleteAttendanceReq) ProtoMessage() {}
 
 func (x *DeleteAttendanceReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[23]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1232,21 +1324,21 @@ func (x *DeleteAttendanceReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteAttendanceReq.ProtoReflect.Descriptor instead.
 func (*DeleteAttendanceReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{23}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{24}
 }
 
-func (x *DeleteAttendanceReq) GetWorkDate() *timestamppb.Timestamp {
+func (x *DeleteAttendanceReq) GetTodayDate() *timestamppb.Timestamp {
 	if x != nil {
-		return x.WorkDate
+		return x.TodayDate
 	}
 	return nil
 }
 
-func (x *DeleteAttendanceReq) GetGroupId() string {
+func (x *DeleteAttendanceReq) GetDeleteDate() *timestamppb.Timestamp {
 	if x != nil {
-		return x.GroupId
+		return x.DeleteDate
 	}
-	return ""
+	return nil
 }
 
 type DeleteAttendanceRes struct {
@@ -1258,7 +1350,7 @@ type DeleteAttendanceRes struct {
 
 func (x *DeleteAttendanceRes) Reset() {
 	*x = DeleteAttendanceRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[24]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1270,7 +1362,7 @@ func (x *DeleteAttendanceRes) String() string {
 func (*DeleteAttendanceRes) ProtoMessage() {}
 
 func (x *DeleteAttendanceRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[24]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1283,7 +1375,7 @@ func (x *DeleteAttendanceRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteAttendanceRes.ProtoReflect.Descriptor instead.
 func (*DeleteAttendanceRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{24}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *DeleteAttendanceRes) GetMessage() string {
@@ -1296,14 +1388,13 @@ func (x *DeleteAttendanceRes) GetMessage() string {
 type GetDailyAttendanceReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	WorkDate      *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=work_date,json=workDate,proto3" json:"work_date,omitempty"`
-	GroupId       string                 `protobuf:"bytes,2,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetDailyAttendanceReq) Reset() {
 	*x = GetDailyAttendanceReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[25]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1315,7 +1406,7 @@ func (x *GetDailyAttendanceReq) String() string {
 func (*GetDailyAttendanceReq) ProtoMessage() {}
 
 func (x *GetDailyAttendanceReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[25]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1328,7 +1419,7 @@ func (x *GetDailyAttendanceReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDailyAttendanceReq.ProtoReflect.Descriptor instead.
 func (*GetDailyAttendanceReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{25}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetDailyAttendanceReq) GetWorkDate() *timestamppb.Timestamp {
@@ -1336,13 +1427,6 @@ func (x *GetDailyAttendanceReq) GetWorkDate() *timestamppb.Timestamp {
 		return x.WorkDate
 	}
 	return nil
-}
-
-func (x *GetDailyAttendanceReq) GetGroupId() string {
-	if x != nil {
-		return x.GroupId
-	}
-	return ""
 }
 
 type GetDailyAttendanceRes struct {
@@ -1354,7 +1438,7 @@ type GetDailyAttendanceRes struct {
 
 func (x *GetDailyAttendanceRes) Reset() {
 	*x = GetDailyAttendanceRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[26]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1366,7 +1450,7 @@ func (x *GetDailyAttendanceRes) String() string {
 func (*GetDailyAttendanceRes) ProtoMessage() {}
 
 func (x *GetDailyAttendanceRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[26]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1379,7 +1463,7 @@ func (x *GetDailyAttendanceRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDailyAttendanceRes.ProtoReflect.Descriptor instead.
 func (*GetDailyAttendanceRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{26}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetDailyAttendanceRes) GetAttendance() []*Attendance {
@@ -1393,14 +1477,13 @@ type GetAllAttendanceReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	StartDate     *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
 	EndDate       *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=end_date,json=endDate,proto3" json:"end_date,omitempty"`
-	GroupId       string                 `protobuf:"bytes,3,opt,name=group_id,json=groupId,proto3" json:"group_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetAllAttendanceReq) Reset() {
 	*x = GetAllAttendanceReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[27]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[28]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1412,7 +1495,7 @@ func (x *GetAllAttendanceReq) String() string {
 func (*GetAllAttendanceReq) ProtoMessage() {}
 
 func (x *GetAllAttendanceReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[27]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[28]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1425,7 +1508,7 @@ func (x *GetAllAttendanceReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllAttendanceReq.ProtoReflect.Descriptor instead.
 func (*GetAllAttendanceReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{27}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *GetAllAttendanceReq) GetStartDate() *timestamppb.Timestamp {
@@ -1442,13 +1525,6 @@ func (x *GetAllAttendanceReq) GetEndDate() *timestamppb.Timestamp {
 	return nil
 }
 
-func (x *GetAllAttendanceReq) GetGroupId() string {
-	if x != nil {
-		return x.GroupId
-	}
-	return ""
-}
-
 type GetAllAttendanceRes struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Attendance    []*Attendance          `protobuf:"bytes,1,rep,name=attendance,proto3" json:"attendance,omitempty"`
@@ -1458,7 +1534,7 @@ type GetAllAttendanceRes struct {
 
 func (x *GetAllAttendanceRes) Reset() {
 	*x = GetAllAttendanceRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[28]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[29]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1470,7 +1546,7 @@ func (x *GetAllAttendanceRes) String() string {
 func (*GetAllAttendanceRes) ProtoMessage() {}
 
 func (x *GetAllAttendanceRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[28]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[29]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1483,7 +1559,7 @@ func (x *GetAllAttendanceRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllAttendanceRes.ProtoReflect.Descriptor instead.
 func (*GetAllAttendanceRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{28}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *GetAllAttendanceRes) GetAttendance() []*Attendance {
@@ -1508,7 +1584,7 @@ type Task struct {
 
 func (x *Task) Reset() {
 	*x = Task{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[29]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1520,7 +1596,7 @@ func (x *Task) String() string {
 func (*Task) ProtoMessage() {}
 
 func (x *Task) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[29]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1533,7 +1609,7 @@ func (x *Task) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Task.ProtoReflect.Descriptor instead.
 func (*Task) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{29}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *Task) GetId() string {
@@ -1591,7 +1667,7 @@ type CreateTaskReq struct {
 
 func (x *CreateTaskReq) Reset() {
 	*x = CreateTaskReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[30]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1603,7 +1679,7 @@ func (x *CreateTaskReq) String() string {
 func (*CreateTaskReq) ProtoMessage() {}
 
 func (x *CreateTaskReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[30]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1616,7 +1692,7 @@ func (x *CreateTaskReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTaskReq.ProtoReflect.Descriptor instead.
 func (*CreateTaskReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{30}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *CreateTaskReq) GetWorkerId() string {
@@ -1663,7 +1739,7 @@ type CreateTaskRes struct {
 
 func (x *CreateTaskRes) Reset() {
 	*x = CreateTaskRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[31]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1675,7 +1751,7 @@ func (x *CreateTaskRes) String() string {
 func (*CreateTaskRes) ProtoMessage() {}
 
 func (x *CreateTaskRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[31]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1688,7 +1764,7 @@ func (x *CreateTaskRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateTaskRes.ProtoReflect.Descriptor instead.
 func (*CreateTaskRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{31}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *CreateTaskRes) GetMessage() string {
@@ -1702,15 +1778,15 @@ type UpdateTaskReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	WorkerId      string                 `protobuf:"bytes,2,opt,name=worker_id,json=workerId,proto3" json:"worker_id,omitempty"`
-	Deadline      *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=deadline,proto3" json:"deadline,omitempty"`
-	EndTime       *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+	Deadline      *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=deadline,proto3,oneof" json:"deadline,omitempty"`
+	EndTime       *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=end_time,json=endTime,proto3,oneof" json:"end_time,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateTaskReq) Reset() {
 	*x = UpdateTaskReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[32]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1722,7 +1798,7 @@ func (x *UpdateTaskReq) String() string {
 func (*UpdateTaskReq) ProtoMessage() {}
 
 func (x *UpdateTaskReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[32]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1735,7 +1811,7 @@ func (x *UpdateTaskReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateTaskReq.ProtoReflect.Descriptor instead.
 func (*UpdateTaskReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{32}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *UpdateTaskReq) GetId() string {
@@ -1775,7 +1851,7 @@ type UpdateTaskRes struct {
 
 func (x *UpdateTaskRes) Reset() {
 	*x = UpdateTaskRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[33]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1787,7 +1863,7 @@ func (x *UpdateTaskRes) String() string {
 func (*UpdateTaskRes) ProtoMessage() {}
 
 func (x *UpdateTaskRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[33]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1800,7 +1876,7 @@ func (x *UpdateTaskRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateTaskRes.ProtoReflect.Descriptor instead.
 func (*UpdateTaskRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{33}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *UpdateTaskRes) GetMessage() string {
@@ -1819,7 +1895,7 @@ type DeleteTaskReq struct {
 
 func (x *DeleteTaskReq) Reset() {
 	*x = DeleteTaskReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[34]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1831,7 +1907,7 @@ func (x *DeleteTaskReq) String() string {
 func (*DeleteTaskReq) ProtoMessage() {}
 
 func (x *DeleteTaskReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[34]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1844,7 +1920,7 @@ func (x *DeleteTaskReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteTaskReq.ProtoReflect.Descriptor instead.
 func (*DeleteTaskReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{34}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *DeleteTaskReq) GetId() string {
@@ -1863,7 +1939,7 @@ type DeleteTaskRes struct {
 
 func (x *DeleteTaskRes) Reset() {
 	*x = DeleteTaskRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[35]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1875,7 +1951,7 @@ func (x *DeleteTaskRes) String() string {
 func (*DeleteTaskRes) ProtoMessage() {}
 
 func (x *DeleteTaskRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[35]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1888,7 +1964,7 @@ func (x *DeleteTaskRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteTaskRes.ProtoReflect.Descriptor instead.
 func (*DeleteTaskRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{35}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *DeleteTaskRes) GetMessage() string {
@@ -1909,7 +1985,7 @@ type GetAllTaskReq struct {
 
 func (x *GetAllTaskReq) Reset() {
 	*x = GetAllTaskReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[36]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1921,7 +1997,7 @@ func (x *GetAllTaskReq) String() string {
 func (*GetAllTaskReq) ProtoMessage() {}
 
 func (x *GetAllTaskReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[36]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1934,7 +2010,7 @@ func (x *GetAllTaskReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllTaskReq.ProtoReflect.Descriptor instead.
 func (*GetAllTaskReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{36}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *GetAllTaskReq) GetWorkerId() string {
@@ -1967,7 +2043,7 @@ type GetAllTaskRes struct {
 
 func (x *GetAllTaskRes) Reset() {
 	*x = GetAllTaskRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[37]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1979,7 +2055,7 @@ func (x *GetAllTaskRes) String() string {
 func (*GetAllTaskRes) ProtoMessage() {}
 
 func (x *GetAllTaskRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[37]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1992,7 +2068,7 @@ func (x *GetAllTaskRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllTaskRes.ProtoReflect.Descriptor instead.
 func (*GetAllTaskRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{37}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *GetAllTaskRes) GetTasks() []*Task {
@@ -2011,7 +2087,7 @@ type GetTaskByIdReq struct {
 
 func (x *GetTaskByIdReq) Reset() {
 	*x = GetTaskByIdReq{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[38]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2023,7 +2099,7 @@ func (x *GetTaskByIdReq) String() string {
 func (*GetTaskByIdReq) ProtoMessage() {}
 
 func (x *GetTaskByIdReq) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[38]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2036,7 +2112,7 @@ func (x *GetTaskByIdReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTaskByIdReq.ProtoReflect.Descriptor instead.
 func (*GetTaskByIdReq) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{38}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *GetTaskByIdReq) GetId() string {
@@ -2055,7 +2131,7 @@ type GetTaskByIdRes struct {
 
 func (x *GetTaskByIdRes) Reset() {
 	*x = GetTaskByIdRes{}
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[39]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2067,7 +2143,7 @@ func (x *GetTaskByIdRes) String() string {
 func (*GetTaskByIdRes) ProtoMessage() {}
 
 func (x *GetTaskByIdRes) ProtoReflect() protoreflect.Message {
-	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[39]
+	mi := &file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2080,7 +2156,7 @@ func (x *GetTaskByIdRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTaskByIdRes.ProtoReflect.Descriptor instead.
 func (*GetTaskByIdRes) Descriptor() ([]byte, []int) {
-	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{39}
+	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *GetTaskByIdRes) GetTask() *Task {
@@ -2103,11 +2179,13 @@ const file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x16\n" +
 	"\x06master\x18\x02 \x01(\tR\x06master\"*\n" +
 	"\x0eCreateGroupRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"L\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"j\n" +
 	"\x0eUpdateGroupReq\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
-	"\x06master\x18\x03 \x01(\tR\x06master\"*\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x17\n" +
+	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x1b\n" +
+	"\x06master\x18\x03 \x01(\tH\x01R\x06master\x88\x01\x01B\a\n" +
+	"\x05_nameB\t\n" +
+	"\a_master\"*\n" +
 	"\x0eUpdateGroupRes\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\" \n" +
 	"\x0eDeleteGroupReq\x12\x0e\n" +
@@ -2129,12 +2207,16 @@ const file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDesc = "" +
 	"\x05image\x18\x02 \x01(\tR\x05image\x12\x19\n" +
 	"\bgroup_id\x18\x03 \x01(\tR\agroupId\"+\n" +
 	"\x0fCreateWorkerRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"f\n" +
-	"\x0fUpdateWorkerReq\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05image\x18\x03 \x01(\tR\x05image\x12\x19\n" +
-	"\bgroup_id\x18\x04 \x01(\tR\agroupId\"+\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"\xa1\x01\n" +
+	"\x0fUpdateWorkerReq\x12\x13\n" +
+	"\x02id\x18\x01 \x01(\tH\x00R\x02id\x88\x01\x01\x12\x17\n" +
+	"\x04name\x18\x02 \x01(\tH\x01R\x04name\x88\x01\x01\x12\x19\n" +
+	"\x05image\x18\x03 \x01(\tH\x02R\x05image\x88\x01\x01\x12\x1e\n" +
+	"\bgroup_id\x18\x04 \x01(\tH\x03R\agroupId\x88\x01\x01B\x05\n" +
+	"\x03_idB\a\n" +
+	"\x05_nameB\b\n" +
+	"\x06_imageB\v\n" +
+	"\t_group_id\"+\n" +
 	"\x0fUpdateWorkerRes\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"!\n" +
 	"\x0fDeleteWorkerReq\x12\x0e\n" +
@@ -2146,44 +2228,57 @@ const file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDesc = "" +
 	"\x04page\x18\x02 \x01(\x03R\x04page\x12\x19\n" +
 	"\bgroup_id\x18\x03 \x01(\tR\agroupId\"=\n" +
 	"\x0fGetAllWorkerRes\x12*\n" +
-	"\aworkers\x18\x01 \x03(\v2\x10.services.WorkerR\aworkers\"\xb7\x01\n" +
+	"\aworkers\x18\x01 \x03(\v2\x10.services.WorkerR\aworkers\"\xc7\x01\n" +
 	"\n" +
-	"Attendance\x12\x1b\n" +
-	"\tworker_id\x18\x01 \x01(\tR\bworkerId\x12\x1c\n" +
-	"\tsituation\x18\x02 \x01(\tR\tsituation\x12\x16\n" +
-	"\x06reason\x18\x03 \x01(\tR\x06reason\x12\x1d\n" +
+	"Attendance\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
+	"\tworker_id\x18\x02 \x01(\tR\bworkerId\x12\x1c\n" +
+	"\tsituation\x18\x03 \x01(\tR\tsituation\x12\x16\n" +
+	"\x06reason\x18\x04 \x01(\tR\x06reason\x12\x1d\n" +
 	"\n" +
-	"is_present\x18\x04 \x01(\bR\tisPresent\x127\n" +
-	"\twork_date\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\bworkDate\"K\n" +
+	"is_present\x18\x05 \x01(\bR\tisPresent\x127\n" +
+	"\twork_date\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\bworkDate\"K\n" +
 	"\x13CreateAttendanceReq\x124\n" +
 	"\n" +
 	"attendance\x18\x01 \x03(\v2\x14.services.AttendanceR\n" +
 	"attendance\"/\n" +
 	"\x13CreateAttendanceRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"K\n" +
-	"\x13UpdateAttendanceReq\x124\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"\x84\x02\n" +
+	"\x10AttendanceUpdate\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
+	"\tworker_id\x18\x02 \x01(\tR\bworkerId\x12!\n" +
+	"\tsituation\x18\x03 \x01(\tH\x00R\tsituation\x88\x01\x01\x12\x1b\n" +
+	"\x06reason\x18\x04 \x01(\tH\x01R\x06reason\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"attendance\x18\x01 \x03(\v2\x14.services.AttendanceR\n" +
+	"is_present\x18\x05 \x01(\bH\x02R\tisPresent\x88\x01\x01\x127\n" +
+	"\twork_date\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\bworkDateB\f\n" +
+	"\n" +
+	"_situationB\t\n" +
+	"\a_reasonB\r\n" +
+	"\v_is_present\"Q\n" +
+	"\x13UpdateAttendanceReq\x12:\n" +
+	"\n" +
+	"attendance\x18\x01 \x03(\v2\x1a.services.AttendanceUpdateR\n" +
 	"attendance\"/\n" +
 	"\x13UpdateAttendanceRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"i\n" +
-	"\x13DeleteAttendanceReq\x127\n" +
-	"\twork_date\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\bworkDate\x12\x19\n" +
-	"\bgroup_id\x18\x02 \x01(\tR\agroupId\"/\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"\x8d\x01\n" +
+	"\x13DeleteAttendanceReq\x129\n" +
+	"\n" +
+	"today_date\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\ttodayDate\x12;\n" +
+	"\vdelete_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"deleteDate\"/\n" +
 	"\x13DeleteAttendanceRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"k\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"P\n" +
 	"\x15GetDailyAttendanceReq\x127\n" +
-	"\twork_date\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\bworkDate\x12\x19\n" +
-	"\bgroup_id\x18\x02 \x01(\tR\agroupId\"M\n" +
+	"\twork_date\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\bworkDate\"M\n" +
 	"\x15GetDailyAttendanceRes\x124\n" +
 	"\n" +
 	"attendance\x18\x01 \x03(\v2\x14.services.AttendanceR\n" +
-	"attendance\"\xa2\x01\n" +
+	"attendance\"\x87\x01\n" +
 	"\x13GetAllAttendanceReq\x129\n" +
 	"\n" +
 	"start_date\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\tstartDate\x125\n" +
-	"\bend_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\aendDate\x12\x19\n" +
-	"\bgroup_id\x18\x03 \x01(\tR\agroupId\"K\n" +
+	"\bend_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\aendDate\"K\n" +
 	"\x13GetAllAttendanceRes\x124\n" +
 	"\n" +
 	"attendance\x18\x01 \x03(\v2\x14.services.AttendanceR\n" +
@@ -2204,12 +2299,14 @@ const file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDesc = "" +
 	"start_time\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tstartTime\x125\n" +
 	"\bend_time\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\aendTime\")\n" +
 	"\rCreateTaskRes\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"\xab\x01\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"\xcf\x01\n" +
 	"\rUpdateTaskReq\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
-	"\tworker_id\x18\x02 \x01(\tR\bworkerId\x126\n" +
-	"\bdeadline\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\bdeadline\x125\n" +
-	"\bend_time\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\aendTime\")\n" +
+	"\tworker_id\x18\x02 \x01(\tR\bworkerId\x12;\n" +
+	"\bdeadline\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\bdeadline\x88\x01\x01\x12:\n" +
+	"\bend_time\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampH\x01R\aendTime\x88\x01\x01B\v\n" +
+	"\t_deadlineB\v\n" +
+	"\t_end_time\")\n" +
 	"\rUpdateTaskRes\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"\x1f\n" +
 	"\rDeleteTaskReq\x12\x0e\n" +
@@ -2263,7 +2360,7 @@ func file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescGZIP() []byte {
 	return file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDescData
 }
 
-var file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes = make([]protoimpl.MessageInfo, 40)
+var file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
 var file_ner_apk_proto_ishlab_chiqarish_services_proto_goTypes = []any{
 	(*Group)(nil),                 // 0: services.Group
 	(*CreateGroupReq)(nil),        // 1: services.CreateGroupReq
@@ -2286,90 +2383,93 @@ var file_ner_apk_proto_ishlab_chiqarish_services_proto_goTypes = []any{
 	(*Attendance)(nil),            // 18: services.Attendance
 	(*CreateAttendanceReq)(nil),   // 19: services.CreateAttendanceReq
 	(*CreateAttendanceRes)(nil),   // 20: services.CreateAttendanceRes
-	(*UpdateAttendanceReq)(nil),   // 21: services.UpdateAttendanceReq
-	(*UpdateAttendanceRes)(nil),   // 22: services.UpdateAttendanceRes
-	(*DeleteAttendanceReq)(nil),   // 23: services.DeleteAttendanceReq
-	(*DeleteAttendanceRes)(nil),   // 24: services.DeleteAttendanceRes
-	(*GetDailyAttendanceReq)(nil), // 25: services.GetDailyAttendanceReq
-	(*GetDailyAttendanceRes)(nil), // 26: services.GetDailyAttendanceRes
-	(*GetAllAttendanceReq)(nil),   // 27: services.GetAllAttendanceReq
-	(*GetAllAttendanceRes)(nil),   // 28: services.GetAllAttendanceRes
-	(*Task)(nil),                  // 29: services.Task
-	(*CreateTaskReq)(nil),         // 30: services.CreateTaskReq
-	(*CreateTaskRes)(nil),         // 31: services.CreateTaskRes
-	(*UpdateTaskReq)(nil),         // 32: services.UpdateTaskReq
-	(*UpdateTaskRes)(nil),         // 33: services.UpdateTaskRes
-	(*DeleteTaskReq)(nil),         // 34: services.DeleteTaskReq
-	(*DeleteTaskRes)(nil),         // 35: services.DeleteTaskRes
-	(*GetAllTaskReq)(nil),         // 36: services.GetAllTaskReq
-	(*GetAllTaskRes)(nil),         // 37: services.GetAllTaskRes
-	(*GetTaskByIdReq)(nil),        // 38: services.GetTaskByIdReq
-	(*GetTaskByIdRes)(nil),        // 39: services.GetTaskByIdRes
-	(*timestamppb.Timestamp)(nil), // 40: google.protobuf.Timestamp
+	(*AttendanceUpdate)(nil),      // 21: services.AttendanceUpdate
+	(*UpdateAttendanceReq)(nil),   // 22: services.UpdateAttendanceReq
+	(*UpdateAttendanceRes)(nil),   // 23: services.UpdateAttendanceRes
+	(*DeleteAttendanceReq)(nil),   // 24: services.DeleteAttendanceReq
+	(*DeleteAttendanceRes)(nil),   // 25: services.DeleteAttendanceRes
+	(*GetDailyAttendanceReq)(nil), // 26: services.GetDailyAttendanceReq
+	(*GetDailyAttendanceRes)(nil), // 27: services.GetDailyAttendanceRes
+	(*GetAllAttendanceReq)(nil),   // 28: services.GetAllAttendanceReq
+	(*GetAllAttendanceRes)(nil),   // 29: services.GetAllAttendanceRes
+	(*Task)(nil),                  // 30: services.Task
+	(*CreateTaskReq)(nil),         // 31: services.CreateTaskReq
+	(*CreateTaskRes)(nil),         // 32: services.CreateTaskRes
+	(*UpdateTaskReq)(nil),         // 33: services.UpdateTaskReq
+	(*UpdateTaskRes)(nil),         // 34: services.UpdateTaskRes
+	(*DeleteTaskReq)(nil),         // 35: services.DeleteTaskReq
+	(*DeleteTaskRes)(nil),         // 36: services.DeleteTaskRes
+	(*GetAllTaskReq)(nil),         // 37: services.GetAllTaskReq
+	(*GetAllTaskRes)(nil),         // 38: services.GetAllTaskRes
+	(*GetTaskByIdReq)(nil),        // 39: services.GetTaskByIdReq
+	(*GetTaskByIdRes)(nil),        // 40: services.GetTaskByIdRes
+	(*timestamppb.Timestamp)(nil), // 41: google.protobuf.Timestamp
 }
 var file_ner_apk_proto_ishlab_chiqarish_services_proto_depIdxs = []int32{
 	0,  // 0: services.GetAllGroupRes.groups:type_name -> services.Group
 	9,  // 1: services.GetAllWorkerRes.workers:type_name -> services.Worker
-	40, // 2: services.Attendance.work_date:type_name -> google.protobuf.Timestamp
+	41, // 2: services.Attendance.work_date:type_name -> google.protobuf.Timestamp
 	18, // 3: services.CreateAttendanceReq.attendance:type_name -> services.Attendance
-	18, // 4: services.UpdateAttendanceReq.attendance:type_name -> services.Attendance
-	40, // 5: services.DeleteAttendanceReq.work_date:type_name -> google.protobuf.Timestamp
-	40, // 6: services.GetDailyAttendanceReq.work_date:type_name -> google.protobuf.Timestamp
-	18, // 7: services.GetDailyAttendanceRes.attendance:type_name -> services.Attendance
-	40, // 8: services.GetAllAttendanceReq.start_date:type_name -> google.protobuf.Timestamp
-	40, // 9: services.GetAllAttendanceReq.end_date:type_name -> google.protobuf.Timestamp
-	18, // 10: services.GetAllAttendanceRes.attendance:type_name -> services.Attendance
-	40, // 11: services.Task.deadline:type_name -> google.protobuf.Timestamp
-	40, // 12: services.Task.start_time:type_name -> google.protobuf.Timestamp
-	40, // 13: services.Task.end_time:type_name -> google.protobuf.Timestamp
-	40, // 14: services.CreateTaskReq.deadline:type_name -> google.protobuf.Timestamp
-	40, // 15: services.CreateTaskReq.start_time:type_name -> google.protobuf.Timestamp
-	40, // 16: services.CreateTaskReq.end_time:type_name -> google.protobuf.Timestamp
-	40, // 17: services.UpdateTaskReq.deadline:type_name -> google.protobuf.Timestamp
-	40, // 18: services.UpdateTaskReq.end_time:type_name -> google.protobuf.Timestamp
-	29, // 19: services.GetAllTaskRes.tasks:type_name -> services.Task
-	29, // 20: services.GetTaskByIdRes.task:type_name -> services.Task
-	1,  // 21: services.ServicesService.CreateGroup:input_type -> services.CreateGroupReq
-	3,  // 22: services.ServicesService.UpdateGroup:input_type -> services.UpdateGroupReq
-	5,  // 23: services.ServicesService.DeleteGroup:input_type -> services.DeleteGroupReq
-	7,  // 24: services.ServicesService.GetAllGroup:input_type -> services.GetAllGroupReq
-	10, // 25: services.ServicesService.CreateWorker:input_type -> services.CreateWorkerReq
-	12, // 26: services.ServicesService.UpdateWorker:input_type -> services.UpdateWorkerReq
-	14, // 27: services.ServicesService.DeleteWorker:input_type -> services.DeleteWorkerReq
-	16, // 28: services.ServicesService.GetAllWorker:input_type -> services.GetAllWorkerReq
-	19, // 29: services.ServicesService.CreateAttendance:input_type -> services.CreateAttendanceReq
-	21, // 30: services.ServicesService.UpdateAttendance:input_type -> services.UpdateAttendanceReq
-	23, // 31: services.ServicesService.DeleteAttendance:input_type -> services.DeleteAttendanceReq
-	25, // 32: services.ServicesService.GetDailyAttendance:input_type -> services.GetDailyAttendanceReq
-	27, // 33: services.ServicesService.GetAllAttendance:input_type -> services.GetAllAttendanceReq
-	30, // 34: services.ServicesService.CreateTask:input_type -> services.CreateTaskReq
-	32, // 35: services.ServicesService.UpdateTask:input_type -> services.UpdateTaskReq
-	34, // 36: services.ServicesService.DeleteTask:input_type -> services.DeleteTaskReq
-	36, // 37: services.ServicesService.GetAllTask:input_type -> services.GetAllTaskReq
-	38, // 38: services.ServicesService.GetTaskById:input_type -> services.GetTaskByIdReq
-	2,  // 39: services.ServicesService.CreateGroup:output_type -> services.CreateGroupRes
-	4,  // 40: services.ServicesService.UpdateGroup:output_type -> services.UpdateGroupRes
-	6,  // 41: services.ServicesService.DeleteGroup:output_type -> services.DeleteGroupRes
-	8,  // 42: services.ServicesService.GetAllGroup:output_type -> services.GetAllGroupRes
-	11, // 43: services.ServicesService.CreateWorker:output_type -> services.CreateWorkerRes
-	13, // 44: services.ServicesService.UpdateWorker:output_type -> services.UpdateWorkerRes
-	15, // 45: services.ServicesService.DeleteWorker:output_type -> services.DeleteWorkerRes
-	17, // 46: services.ServicesService.GetAllWorker:output_type -> services.GetAllWorkerRes
-	20, // 47: services.ServicesService.CreateAttendance:output_type -> services.CreateAttendanceRes
-	22, // 48: services.ServicesService.UpdateAttendance:output_type -> services.UpdateAttendanceRes
-	24, // 49: services.ServicesService.DeleteAttendance:output_type -> services.DeleteAttendanceRes
-	26, // 50: services.ServicesService.GetDailyAttendance:output_type -> services.GetDailyAttendanceRes
-	28, // 51: services.ServicesService.GetAllAttendance:output_type -> services.GetAllAttendanceRes
-	31, // 52: services.ServicesService.CreateTask:output_type -> services.CreateTaskRes
-	33, // 53: services.ServicesService.UpdateTask:output_type -> services.UpdateTaskRes
-	35, // 54: services.ServicesService.DeleteTask:output_type -> services.DeleteTaskRes
-	37, // 55: services.ServicesService.GetAllTask:output_type -> services.GetAllTaskRes
-	39, // 56: services.ServicesService.GetTaskById:output_type -> services.GetTaskByIdRes
-	39, // [39:57] is the sub-list for method output_type
-	21, // [21:39] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	41, // 4: services.AttendanceUpdate.work_date:type_name -> google.protobuf.Timestamp
+	21, // 5: services.UpdateAttendanceReq.attendance:type_name -> services.AttendanceUpdate
+	41, // 6: services.DeleteAttendanceReq.today_date:type_name -> google.protobuf.Timestamp
+	41, // 7: services.DeleteAttendanceReq.delete_date:type_name -> google.protobuf.Timestamp
+	41, // 8: services.GetDailyAttendanceReq.work_date:type_name -> google.protobuf.Timestamp
+	18, // 9: services.GetDailyAttendanceRes.attendance:type_name -> services.Attendance
+	41, // 10: services.GetAllAttendanceReq.start_date:type_name -> google.protobuf.Timestamp
+	41, // 11: services.GetAllAttendanceReq.end_date:type_name -> google.protobuf.Timestamp
+	18, // 12: services.GetAllAttendanceRes.attendance:type_name -> services.Attendance
+	41, // 13: services.Task.deadline:type_name -> google.protobuf.Timestamp
+	41, // 14: services.Task.start_time:type_name -> google.protobuf.Timestamp
+	41, // 15: services.Task.end_time:type_name -> google.protobuf.Timestamp
+	41, // 16: services.CreateTaskReq.deadline:type_name -> google.protobuf.Timestamp
+	41, // 17: services.CreateTaskReq.start_time:type_name -> google.protobuf.Timestamp
+	41, // 18: services.CreateTaskReq.end_time:type_name -> google.protobuf.Timestamp
+	41, // 19: services.UpdateTaskReq.deadline:type_name -> google.protobuf.Timestamp
+	41, // 20: services.UpdateTaskReq.end_time:type_name -> google.protobuf.Timestamp
+	30, // 21: services.GetAllTaskRes.tasks:type_name -> services.Task
+	30, // 22: services.GetTaskByIdRes.task:type_name -> services.Task
+	1,  // 23: services.ServicesService.CreateGroup:input_type -> services.CreateGroupReq
+	3,  // 24: services.ServicesService.UpdateGroup:input_type -> services.UpdateGroupReq
+	5,  // 25: services.ServicesService.DeleteGroup:input_type -> services.DeleteGroupReq
+	7,  // 26: services.ServicesService.GetAllGroup:input_type -> services.GetAllGroupReq
+	10, // 27: services.ServicesService.CreateWorker:input_type -> services.CreateWorkerReq
+	12, // 28: services.ServicesService.UpdateWorker:input_type -> services.UpdateWorkerReq
+	14, // 29: services.ServicesService.DeleteWorker:input_type -> services.DeleteWorkerReq
+	16, // 30: services.ServicesService.GetAllWorker:input_type -> services.GetAllWorkerReq
+	19, // 31: services.ServicesService.CreateAttendance:input_type -> services.CreateAttendanceReq
+	22, // 32: services.ServicesService.UpdateAttendance:input_type -> services.UpdateAttendanceReq
+	24, // 33: services.ServicesService.DeleteAttendance:input_type -> services.DeleteAttendanceReq
+	26, // 34: services.ServicesService.GetDailyAttendance:input_type -> services.GetDailyAttendanceReq
+	28, // 35: services.ServicesService.GetAllAttendance:input_type -> services.GetAllAttendanceReq
+	31, // 36: services.ServicesService.CreateTask:input_type -> services.CreateTaskReq
+	33, // 37: services.ServicesService.UpdateTask:input_type -> services.UpdateTaskReq
+	35, // 38: services.ServicesService.DeleteTask:input_type -> services.DeleteTaskReq
+	37, // 39: services.ServicesService.GetAllTask:input_type -> services.GetAllTaskReq
+	39, // 40: services.ServicesService.GetTaskById:input_type -> services.GetTaskByIdReq
+	2,  // 41: services.ServicesService.CreateGroup:output_type -> services.CreateGroupRes
+	4,  // 42: services.ServicesService.UpdateGroup:output_type -> services.UpdateGroupRes
+	6,  // 43: services.ServicesService.DeleteGroup:output_type -> services.DeleteGroupRes
+	8,  // 44: services.ServicesService.GetAllGroup:output_type -> services.GetAllGroupRes
+	11, // 45: services.ServicesService.CreateWorker:output_type -> services.CreateWorkerRes
+	13, // 46: services.ServicesService.UpdateWorker:output_type -> services.UpdateWorkerRes
+	15, // 47: services.ServicesService.DeleteWorker:output_type -> services.DeleteWorkerRes
+	17, // 48: services.ServicesService.GetAllWorker:output_type -> services.GetAllWorkerRes
+	20, // 49: services.ServicesService.CreateAttendance:output_type -> services.CreateAttendanceRes
+	23, // 50: services.ServicesService.UpdateAttendance:output_type -> services.UpdateAttendanceRes
+	25, // 51: services.ServicesService.DeleteAttendance:output_type -> services.DeleteAttendanceRes
+	27, // 52: services.ServicesService.GetDailyAttendance:output_type -> services.GetDailyAttendanceRes
+	29, // 53: services.ServicesService.GetAllAttendance:output_type -> services.GetAllAttendanceRes
+	32, // 54: services.ServicesService.CreateTask:output_type -> services.CreateTaskRes
+	34, // 55: services.ServicesService.UpdateTask:output_type -> services.UpdateTaskRes
+	36, // 56: services.ServicesService.DeleteTask:output_type -> services.DeleteTaskRes
+	38, // 57: services.ServicesService.GetAllTask:output_type -> services.GetAllTaskRes
+	40, // 58: services.ServicesService.GetTaskById:output_type -> services.GetTaskByIdRes
+	41, // [41:59] is the sub-list for method output_type
+	23, // [23:41] is the sub-list for method input_type
+	23, // [23:23] is the sub-list for extension type_name
+	23, // [23:23] is the sub-list for extension extendee
+	0,  // [0:23] is the sub-list for field type_name
 }
 
 func init() { file_ner_apk_proto_ishlab_chiqarish_services_proto_init() }
@@ -2377,13 +2477,17 @@ func file_ner_apk_proto_ishlab_chiqarish_services_proto_init() {
 	if File_ner_apk_proto_ishlab_chiqarish_services_proto != nil {
 		return
 	}
+	file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[3].OneofWrappers = []any{}
+	file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[12].OneofWrappers = []any{}
+	file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[21].OneofWrappers = []any{}
+	file_ner_apk_proto_ishlab_chiqarish_services_proto_msgTypes[33].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDesc), len(file_ner_apk_proto_ishlab_chiqarish_services_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   40,
+			NumMessages:   41,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

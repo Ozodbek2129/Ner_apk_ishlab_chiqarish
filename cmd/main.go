@@ -24,7 +24,7 @@ func main() {
 		log.Fatal(err)
 	}
 	
-	contractservice := service.NewProductionContractService(db, logger.NewLogger())
+	contractservice := service.NewProductionService(db, logger.NewLogger())
 
 	server := grpc.NewServer()
 	pb.RegisterIshlabChiqarishServiceServer(server, contractservice)
