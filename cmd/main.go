@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	pb "ishlab_chiqarish/genproto/contract"
+	pbs "ishlab_chiqarish/genproto/services"
 
 	"google.golang.org/grpc"
 )
@@ -25,9 +26,11 @@ func main() {
 	}
 	
 	contractservice := service.NewProductionService(db, logger.NewLogger())
+	service_employee := service.NewEmployeeServiceRepo(db, logger.NewLogger())
 
 	server := grpc.NewServer()
 	pb.RegisterContractServiceServer(server, contractservice)
+	pbs.RegisterServicesServiceServer(server, service_employee)
 
 	log.Printf("Server is listening on port %s\n", config.Load().PRODUCTION_SERVICE)
 	if err = server.Serve(listener); err != nil {
