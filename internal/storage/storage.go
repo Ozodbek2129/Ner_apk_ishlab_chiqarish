@@ -1,7 +1,7 @@
 package storage
 
 import (
-	pb "ishlab_chiqarish/genproto/ishlab_chiqarish"
+	pb "ishlab_chiqarish/genproto/contract"
 	pb1 "ishlab_chiqarish/genproto/services"
 	"context"
 )

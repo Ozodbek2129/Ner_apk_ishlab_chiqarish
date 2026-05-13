@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	pb "ishlab_chiqarish/genproto/ishlab_chiqarish"
+	pb "ishlab_chiqarish/genproto/contract"
 	"ishlab_chiqarish/internal/pkg/logger"
 	"ishlab_chiqarish/internal/storage"
 	"log/slog"

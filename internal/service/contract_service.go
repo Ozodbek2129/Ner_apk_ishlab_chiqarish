@@ -4,14 +4,14 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	pb "ishlab_chiqarish/genproto/ishlab_chiqarish"
+	pb "ishlab_chiqarish/genproto/contract"
 	"ishlab_chiqarish/internal/storage"
 	"ishlab_chiqarish/internal/storage/postgres"
 	"log/slog"
 )
 
 type ProdutionRepo struct {
-	pb.UnimplementedIshlabChiqarishServiceServer
+	pb.UnimplementedContractServiceServer
 	Production storage.IStorage
 	Logger *slog.Logger
 }
